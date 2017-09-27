@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI); 
 var index = require('./routes/index');
+const methodOverride = require('method-override')
 
  const db = mongoose.connection
  db.on('error', (error)=>{
@@ -17,7 +18,7 @@ var index = require('./routes/index');
    console.log("Conected to mongodb")
  })
 var app = express();
-
+app.use(methodOverride('_method'))
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

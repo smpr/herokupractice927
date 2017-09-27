@@ -8,10 +8,10 @@ const CompanyModel = Schema.CompanyModel
 
 router.get('/', (request, response)=>{
     CompanyModel.find({})
-    .then((company)=>{
+    .then((companies)=>{
         //sends this data to the companies/index.hbs
         response.render('companies/index', {
-            companies
+            companies: companies
         })
     })
     .catch((error)=>{
