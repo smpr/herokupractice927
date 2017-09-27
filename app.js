@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI); 
 var index = require('./routes/index');
-var users = require('./routes/users');
+
  const db = mongoose.connection
  db.on('error', (error)=>{
    console.log(error)
@@ -21,6 +21,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+//displays db information!!! pay attention!!
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -29,9 +30,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+const companyController = require('./routes/companyController.js')
+const snowboardController = require("./routes/snowboardController.js")
+app.use('/companies', companyController)
+//this takes the company id and takes all the snowboards from it in the db and posts it
+app.use('/companies/:companyId/snowboards', snowboardController)
 app.use('/', index);
-app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
