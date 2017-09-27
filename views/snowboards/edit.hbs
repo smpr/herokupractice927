@@ -1,3 +1,9 @@
-<form action="/companies/{{companyId}}/snowboards?_method="PUT"">
-<label for="name"></label>
+<form action="/companies/{{companyId}}/snowboards/{{snowboard._id}}?_method=PUT" method="POST">
+    <label for="name">Name</label>
+    <input type="text" name="name" value="{{snowboard.name}}">
+
+    <label for="price">Price</label>
+    <input type="number" name="price" value="{{snowboard.price}}" step="any">
+
+    <input type="submit" value="Edit">
 </form>
